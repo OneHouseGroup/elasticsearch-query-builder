@@ -49,7 +49,8 @@ class RangeQuery implements Query
         return $this;
     }
 
-    public function getFieldName(): string {
+    public function getFieldName(): string
+    {
         return $this->field;
     }
 

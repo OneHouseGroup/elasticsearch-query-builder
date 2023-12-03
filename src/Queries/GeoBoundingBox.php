@@ -4,23 +4,27 @@ namespace Spatie\ElasticsearchQueryBuilder\Queries;
 
 class GeoBoundingBox implements Query
 {
-
     public static function create(
         string $field,
-        float $from_longitude, float $from_latitude, float $to_longitude, float $to_latitude
-        
+        float $from_longitude,
+        float $from_latitude,
+        float $to_longitude,
+        float $to_latitude
     ): self {
         return new self($field, $from_longitude, $from_latitude, $to_longitude, $to_latitude);
     }
 
     public function __construct(
         protected string $field,
-        protected float $from_longitude, protected float $from_latitude, protected float $to_longitude, protected float $to_latitude
-        
+        protected float $from_longitude,
+        protected float $from_latitude,
+        protected float $to_longitude,
+        protected float $to_latitude
     ) {
     }
 
-    public function getFieldName(): string {
+    public function getFieldName(): string
+    {
         return $this->field;
     }
 
@@ -33,14 +37,14 @@ class GeoBoundingBox implements Query
 
                     "top_left" => [
                         "lat" => $this->from_latitude,
-                        "lon" => $this->from_longitude
+                        "lon" => $this->from_longitude,
                     ],
-                    "bottom_right"=> [
+                    "bottom_right" => [
                         "lat" => $this->to_latitude,
-                        "lon" => $this->to_longitude
-                    ]
-                ]
-            ]
+                        "lon" => $this->to_longitude,
+                    ],
+                ],
+            ],
         ];
 
     }

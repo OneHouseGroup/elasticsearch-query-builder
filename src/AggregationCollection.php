@@ -28,13 +28,13 @@ class AggregationCollection
 
     /**
      * Set aggregations global
-     * 
+     *
      */
-    public function setGlobal() 
+    public function setGlobal()
     {
         $this->global = true;
 
-		return $this;
+        return $this;
     }
 
     public function toArray(): array
@@ -47,13 +47,13 @@ class AggregationCollection
 
         if ($this->global) {
 
-			$global_aggregations['global_aggs_wrapper'] = [
-				'global' => (object) [],
-				'aggs' => $aggregations
-			];
+            $global_aggregations['global_aggs_wrapper'] = [
+                'global' => (object) [],
+                'aggs' => $aggregations,
+            ];
 
-			return $global_aggregations;
-		}
+            return $global_aggregations;
+        }
 
         return $aggregations;
     }
