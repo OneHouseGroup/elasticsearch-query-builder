@@ -14,10 +14,10 @@ class BoolQuery implements Query
         return new self();
     }
 
-    public function __construct(array $queries = [])
-    {
-        $this->queries = $queries;
-    }
+    function __construct(array $queries = [] )
+	{
+		$this->queries = $queries;
+	}
 
     public function add(Query $query, string $type = 'must'): static
     {
@@ -26,44 +26,41 @@ class BoolQuery implements Query
         }
 
         $this->queries[] = (object) [
-            'type' => $type,
-            'query' => $query,
+            'type' => $type, 
+            'query' => $query
         ];
 
         return $this;
     }
 
     /**
-     * has queries?
-     *
-     * @return bool
-     */
-    public function isEmpty()
+	 * has queries?
+	 * 
+	 * @return bool
+	 */
+	public function isEmpty()
     {
         return count($this->queries) == 0;
     }
 
     /**
-     * Get query instance except field
-     *
-     * @param string $fieldName
-     * @return $this
-     */
-    public function getQueriesExcept(string $fieldName)
+	 * Get query instance except field
+	 * 
+	 * @param string $fieldName
+	 * @return $this
+	 */
+	public function getQueriesExcept(string $fieldName) 
     {
-        return new self(
+		return new self(
             array_values(
-                array_filter($this->queries, function ($queryType) use ($fieldName) {
-                    if ($queryType->query->getFieldName() != $fieldName) {
-                        return true;
-                    }
+                array_filter( $this->queries, function ($queryType) use ($fieldName) {
+                    if ($queryType->query->getFieldName() != $fieldName ) return true;
                 })
             )
-        );
+		);
     }
 
-    public function getFieldName(): string
-    {
+    public function getFieldName(): string {
         return false;
     }
 
@@ -82,19 +79,19 @@ class BoolQuery implements Query
     }
 
     /**
-     * Prepare conditions for type
-     *
-     * @param string $type
-     * @return array
-     */
-    private function prepareQueryType(string $type)
-    {
+	 * Prepare conditions for type
+	 * 
+	 * @param string $type
+	 * @return array
+	 */
+	private function prepareQueryType( string $type) {
 
-        return array_filter($this->queries, function ($queryType) use ($type) {
-            if ($queryType->type == $type) {
-                return true;
-            }
-        });
+        return array_values(
+            array_filter($this->queries, function ($queryType) use ($type) {
+            if ($queryType->type == $type) return true;
+            })
+        );
 
-    }
+
+	}
 }
