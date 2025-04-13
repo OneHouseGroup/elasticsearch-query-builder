@@ -19,6 +19,11 @@ class TermsQuery implements Query
         $this->value = $value;
     }
 
+    public function getFieldName(): string
+    {
+        return $this->field;
+    }
+
     public function toArray(): array
     {
         return [
