@@ -17,6 +17,11 @@ class PrefixQuery implements Query
     ) {
     }
 
+    public function getFieldName(): string
+    {
+        return $this->field;
+    }
+
     public function toArray(): array
     {
         return [
